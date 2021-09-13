@@ -1,0 +1,82 @@
+﻿
+@{
+    ViewData["Title"] = "Home Page";
+    int TwitterCount = (int)ViewData["TwitterCount"];
+    int FacebookCount = (int)ViewData["FacebookCount"];
+    int MicrosoftCount = (int)ViewData["MicrosoftCount"];
+    bool isBlocked = (bool)ViewData["BlockState"];
+}
+
+<div class="text-center">
+    <h1 class="display-4">Welcome</h1>
+</div>
+
+@if (isBlocked == true)
+{
+<div class="text-center">
+    <h1 style="color:red">This account is blocked.</h1>
+</div>
+}
+
+<div class="container">
+    <canvas id="myChart" width="400" height="200"></canvas>
+</div>
+
+<div>
+    <canvas id="myChart"></canvas>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.bundle.min.js"></script>
+<script src="script.js"></script>
+
+<script>
+    var ctx = document.getElementById('myChart').getContext('2d');
+    var myChart = new Chart(ctx, {
+        type: 'doughnut',
+        data: {
+            labels: ['Facebook = ' + @FacebookCount, 'Microsoft = ' + @MicrosoftCount, 'Twitter = ' + @TwitterCount],
+            datasets: [{
+                data: [@FacebookCount, @MicrosoftCount, @TwitterCount],
+                backgroundColor: ['#0004FF', '#76FF00', '#00BBFF'],
+                borderWidth: 0.5,
+                borderColor: '#ddd'
+            }]
+        },
+        options: {
+            title: {
+                display: true,
+                text: 'Users',
+                position: 'top',
+                fontSize: 16,
+                fontColor: '#111',
+                padding: 20
+            },
+            legend: {
+                display: true,
+                position: 'bottom',
+                labels: {
+                    boxWidth: 20,
+                    fontColor: '#111',
+                    padding: 15
+                }
+            },
+            tooltips: {
+                enabled: false
+            },
+            plugins: {
+                datalabels: {
+                    color: '#111',
+                    textAlign: 'center',
+                    font: {
+                        lineHeight: 1.6
+                    },
+                    formatter: function (value, ctx) {
+                        return ctx.chart.data.labels[ctx.dataIndex] + '\n' + value + '%';
+                    }
+                }
+            }
+        }
+    });
+</script>
+
+
