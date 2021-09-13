@@ -31,7 +31,7 @@ namespace Task4.Controllers
 
         public IActionResult Index()
         {
-            ViewData["TwitterCount"] = CountInBase("Twitter");
+            ViewData["GoogleCount"] = CountInBase("Google");
             ViewData["MicrosoftCount"] = CountInBase("Microsoft");
             ViewData["FacebookCount"] = CountInBase("Facebook");
             if(CheckState() == true)

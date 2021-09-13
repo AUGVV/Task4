@@ -1,7 +1,7 @@
 ﻿
 @{
     ViewData["Title"] = "Home Page";
-    int TwitterCount = (int)ViewData["TwitterCount"];
+    int GoogleCount = (int)ViewData["GoogleCount"];
     int FacebookCount = (int)ViewData["FacebookCount"];
     int MicrosoftCount = (int)ViewData["MicrosoftCount"];
     bool isBlocked = (bool)ViewData["BlockState"];
@@ -34,9 +34,9 @@
     var myChart = new Chart(ctx, {
         type: 'doughnut',
         data: {
-            labels: ['Facebook = ' + @FacebookCount, 'Microsoft = ' + @MicrosoftCount, 'Twitter = ' + @TwitterCount],
+            labels: ['Facebook = ' + @FacebookCount, 'Microsoft = ' + @MicrosoftCount, 'Google = ' + @GoogleCount],
             datasets: [{
-                data: [@FacebookCount, @MicrosoftCount, @TwitterCount],
+                data: [@FacebookCount, @MicrosoftCount, @GoogleCount],
                 backgroundColor: ['#0004FF', '#76FF00', '#00BBFF'],
                 borderWidth: 0.5,
                 borderColor: '#ddd'
