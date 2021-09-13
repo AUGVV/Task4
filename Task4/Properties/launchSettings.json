@@ -1,4 +1,4 @@
-﻿{
+{
   "iisSettings": {
     "windowsAuthentication": false,
     "anonymousAuthentication": true,
@@ -12,7 +12,10 @@
       "commandName": "IISExpress",
       "launchBrowser": true,
       "environmentVariables": {
-        "ASPNETCORE_ENVIRONMENT": "Development"
+        "ASPNETCORE_ENVIRONMENT": "Development",
+        "VaultUri": "https://task4vault.vault.azure.net/",
+        "AZURE_USERNAME": "augulvv@gmail.com",
+        "task4vault": "https://task4vault.vault.azure.net/"
       }
     },
     "Task4": {
@@ -20,7 +23,10 @@
       "launchBrowser": true,
       "applicationUrl": "https://localhost:5001;http://localhost:5000",
       "environmentVariables": {
-        "ASPNETCORE_ENVIRONMENT": "Development"
+        "ASPNETCORE_ENVIRONMENT": "Development",
+        "VaultUri": "https://task4vault.vault.azure.net/",
+        "AZURE_USERNAME": "augulvv@gmail.com",
+        "task4vault": "https://task4vault.vault.azure.net/"
       }
     }
   }

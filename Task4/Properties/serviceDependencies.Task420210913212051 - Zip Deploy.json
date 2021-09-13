@@ -4,19 +4,19 @@
       "resourceId": "/subscriptions/[parameters('subscriptionId')]/resourceGroups/[parameters('resourceGroupName')]/providers/Microsoft.Sql/servers/mydbserver-1111/databases/Task4_db",
       "type": "mssql.azure",
       "connectionId": "ConnectionStrings:UsersDataConnection",
-      "secretStore": "LocalSecretsFile"
+      "secretStore": "AzureAppSettings"
     },
     "mssql2": {
       "resourceId": "/subscriptions/[parameters('subscriptionId')]/resourceGroups/[parameters('resourceGroupName')]/providers/Microsoft.Sql/servers/mydbserver-1111/databases/Task4_credential_db",
       "type": "mssql.azure",
       "connectionId": "ConnectionStrings:DefaultConnection",
-      "secretStore": "LocalSecretsFile"
+      "secretStore": "AzureAppSettings"
     },
     "secrets1": {
       "resourceId": "/subscriptions/[parameters('subscriptionId')]/resourceGroups/[parameters('resourceGroupName')]/providers/Microsoft.KeyVault/vaults/Task4vault",
       "type": "secrets.keyVault",
       "connectionId": "task4vault",
-      "secretStore": null
+      "secretStore": "AzureAppSettings"
     }
   }
 }

@@ -2,7 +2,15 @@
   "dependencies": {
     "mssql1": {
       "type": "mssql",
+      "connectionId": "ConnectionStrings:UsersDataConnection"
+    },
+    "mssql2": {
+      "type": "mssql",
       "connectionId": "ConnectionStrings:DefaultConnection"
+    },
+    "secrets1": {
+      "type": "secrets",
+      "connectionId": "task4vault"
     }
   }
 }
