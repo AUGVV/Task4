@@ -37,8 +37,6 @@ namespace Task4
             return secret;
         }
 
-
-        // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
          
@@ -54,7 +52,7 @@ namespace Task4
             services.AddRazorPages();
             services.AddAuthentication().AddFacebook(facebookOptions =>
              {
-                facebookOptions.AppId = TakeSecretKey("AuthenticationFacebookAppId", "f8b5f49f4aa44dadba87c2cf6d486935");
+                 facebookOptions.AppId = TakeSecretKey("AuthenticationFacebookAppId", "f8b5f49f4aa44dadba87c2cf6d486935");
                  facebookOptions.AppSecret = TakeSecretKey("AuthenticationFacebookAppSecret", "6c4a0e89c3334b19bd0c742f15ac8db9");
              });
             services.AddAuthentication().AddMicrosoftAccount(microsoftOptions =>
@@ -81,7 +79,6 @@ namespace Task4
             else
             {
                 app.UseExceptionHandler("/Home/Error");
-                // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
             app.UseHttpsRedirection();
@@ -95,8 +92,8 @@ namespace Task4
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(
-                    name: "default",
-                    pattern: "{controller=Home}/{action=Index}/{id?}");
+                name: "default",
+                pattern: "{controller=Home}/{action=Index}/{id?}");
                 endpoints.MapRazorPages();
             });
         }

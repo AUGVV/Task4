@@ -114,7 +114,6 @@ namespace Task4.Controllers
             {
                 UsersBuffer = UsersBuffer.Where(p => p.State.Contains(Blocked));
             }
-
             UsersBuffer = TableSort(UsersBuffer, SortOrder);
 
             TableViewModel ViewModel = new TableViewModel
@@ -211,7 +210,6 @@ namespace Task4.Controllers
             ViewData["FirstEnterSort"] = SortOrder == SortState.FirstEnterAsc ? SortState.FirstEnterDesc : SortState.FirstEnterAsc;
             ViewData["LastEnterSort"] = SortOrder == SortState.LastEnterAsc ? SortState.LastEnterDesc : SortState.LastEnterAsc;
             ViewData["StateSort"] = SortOrder == SortState.StateAsc ? SortState.StateDesc : SortState.StateAsc;
-
 
             ForSort = SortOrder switch
             {

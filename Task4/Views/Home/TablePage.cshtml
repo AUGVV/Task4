@@ -1,6 +1,4 @@
-﻿@{
-
-}
+﻿
 <form method="get">
     <div class="form-inline form-group">
         <label class="control-label">Соцсеть:</label>  <select name="SocialNetwork" asp-items="Model.SocialNetworksList" value=" " class="form-control"></select>
@@ -15,7 +13,6 @@
         <Button type="submit" asp-action="TablePage" asp-route-Act="UserUnblock" asp-route-SocialNetwork="@ViewData["SocialNetworkSave"]" asp-route-Blocked="@ViewData["BlockedSave"]" class="btn btn-actions" value="UnblockUser">Разблок</Button>
         <Button  type="submit" asp-action="TablePage" asp-route-Act="UserDelete" asp-route-SocialNetwork="@ViewData["SocialNetworkSave"]" asp-route-Blocked="@ViewData["BlockedSave"]" class="btn btn-actions" value="DeleteUser">Удалить</Button>
 </div>
-
 
 <table class="table">
     <tr>
@@ -32,7 +29,6 @@
         <tr><td><input type="checkbox" name="Selected[]" value="@item.Id"></td><td>@item.Id</td><td>@item.SocialUserName</td><td>@item.SocialNetwork</td><td>@item.FirstEnter</td><td>@item.LastEnter</td><td>@item.State</td></tr>
     }
 </table>
-
 </form>
 
 <script>
