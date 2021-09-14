@@ -37,8 +37,6 @@ namespace Task4.Areas.Identity.Pages.Account
             db = context;
         }
 
-
-
         [BindProperty]
         public InputModel Input { get; set; }
 
@@ -86,6 +84,7 @@ namespace Task4.Areas.Identity.Pages.Account
 
             // Sign in the user with this external login provider if the user already has a login.
             var result = await _signInManager.ExternalLoginSignInAsync(info.LoginProvider, info.ProviderKey, isPersistent: false, bypassTwoFactor : true);
+
             if (result.Succeeded)
             {
                 _logger.LogInformation(info.Principal.FindFirstValue(ClaimTypes.Email));
@@ -97,11 +96,7 @@ namespace Task4.Areas.Identity.Pages.Account
                 var CurrentUser = db.Users.Where(c=>c.SocialUserName == info.Principal.Identity.Name && c.SocialNetwork == info.LoginProvider).FirstOrDefault();
                 CurrentUser.LastEnter = DateTime.Now;
                 db.SaveChanges();
-
-
-              
-                _logger.LogInformation("{Name} logged in with {LoginProvider} provider.", info.Principal.Identity.Name, info.LoginProvider);
-                return LocalRedirect(returnUrl);
+                return LocalRedirect("/Home/TablePage");
             }
             if (result.IsLockedOut)
             {
@@ -136,38 +131,37 @@ namespace Task4.Areas.Identity.Pages.Account
 
             if (ModelState.IsValid)
             {
-                var user = new IdentityUser { UserName = Input.Email, Email = Input.Email };
-
+                var user = new IdentityUser { UserName = Input.Email , Email = Input.Email };
                 var result = await _userManager.CreateAsync(user);
+        
                 if (result.Succeeded)
                 {
                     result = await _userManager.AddLoginAsync(user, info);
                     if (result.Succeeded)
                     {
-                        _logger.LogInformation("User created an account using {Name} provider.", info.LoginProvider);
-                        db.Add(new UserDataModel { SocialUserName = info.Principal.Identity.Name, SocialNetwork = info.LoginProvider, FirstEnter = DateTime.Now, LastEnter = DateTime.Now, State = "Active", Email = user.Email });
-                        await db.SaveChangesAsync();
                         var userId = await _userManager.GetUserIdAsync(user);
                         var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
+
                         code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
-                        var callbackUrl = Url.Page(
-                            "/Account/ConfirmEmail",
+                        var callbackUrl = Url.Page("/Account/ConfirmEmail",
                             pageHandler: null,
-                            values: new { area = "Identity", userId = userId, code = code },
+                           values: new { area = "Identity", userId = userId, code = code },
                             protocol: Request.Scheme);
 
                         await _emailSender.SendEmailAsync(Input.Email, "Confirm your email",
                             $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
 
-                        // If account confirmation is required, we need to show the link if we don't have a real email sender
-                        if (_userManager.Options.SignIn.RequireConfirmedAccount)
-                        {
-                            return RedirectToPage("./RegisterConfirmation", new { Email = Input.Email });
-                        }
+                        code = Encoding.UTF8.GetString(WebEncoders.Base64UrlDecode(code));
+                        await _userManager.ConfirmEmailAsync(user, code);
 
                         await _signInManager.SignInAsync(user, isPersistent: false, info.LoginProvider);
 
-                        return LocalRedirect(returnUrl);
+
+                        _logger.LogInformation("User created an account using {Name} provider.", info.LoginProvider);
+                        db.Add(new UserDataModel { SocialUserName = info.Principal.Identity.Name, SocialNetwork = info.LoginProvider, FirstEnter = DateTime.Now, LastEnter = DateTime.Now, State = "Active", Email = user.UserName });
+                        await db.SaveChangesAsync();
+
+                        return LocalRedirect("/Home/TablePage");
                     }
                 }
                 foreach (var error in result.Errors)
